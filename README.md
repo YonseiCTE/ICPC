@@ -8,7 +8,7 @@ Project : Prepare for ACM ICPC
 
 ###Team - 추가 바람
 
-< Davi Innovtion >
+< Davi Innovation >
 
 - " Cho Dong Heon "
 [Linkedin](http://kr.linkedin.com/in/dongheoncho/en)
