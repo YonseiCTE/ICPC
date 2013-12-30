@@ -8,6 +8,23 @@ Project : Prepare for ACM ICPC
 
 ###Team - 추가 바람
 
+< ZZM >
+
+- 박상현
+
+- 윤지상
+
+- 정재종
+
+< Honey Jam >
+
+- 김봄
+
+- 서강원
+
+- 공지연
+
+/*——————————————————————————————————————*/
 < Davi Innovation >
 
 - " Cho Dong Heon "
