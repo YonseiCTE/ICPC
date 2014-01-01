@@ -24,7 +24,7 @@ Project : Prepare for ACM ICPC
 
 - 공지연
 
-< Pi (Pioneer of ICPC >
+< Pi (Pioneer of ICPC) >
 
 - 이계연
 
