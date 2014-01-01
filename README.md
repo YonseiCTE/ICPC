@@ -24,6 +24,14 @@ Project : Prepare for ACM ICPC
 
 - 공지연
 
+< Pi (Pioneer of ICPC >
+
+- 이계연
+
+- 정재학
+
+- 박현태
+
 < Davi Innovation >
 
 - 조동헌 " Cho Dong Heon "
