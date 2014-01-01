@@ -1,4 +1,4 @@
-# ACM ICPC - Yonsei University, Wonju
+﻿# ACM ICPC - Yonsei University, Wonju
 
 ---
 
@@ -26,12 +26,12 @@ Project : Prepare for ACM ICPC
 
 < Davi Innovation >
 
-- " Cho Dong Heon "
+- 조동헌 " Cho Dong Heon "
 [Linkedin](http://kr.linkedin.com/in/dongheoncho/en)
 
-- " Sangmin Park "
+- 박상민 " Sangmin Park "
 
-- " Kyunghyun Lim "
+- 임경현 " Kyunghyun Lim "
  
 
 
