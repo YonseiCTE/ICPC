@@ -327,19 +327,19 @@ int Path_Check () {
 
 	// 시작 포인트일 경우
 	else {
-		if ( Maze_Map [Current_M][Current_N+1] == '.' && have_energy [Current_M][Current_N+1] == -1) {
+		if ( Maze_Map [Current_M][Current_N+1] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M][Current_N+1] ) {
 			Go_Where [Current_M][Current_N] = 'E' ;
 			return 1 ;
 		}
-		else if ( Maze_Map [Current_M][Current_N-1] == '.' && have_energy [Current_M][Current_N-1] == -1 ) {
+		else if ( Maze_Map [Current_M][Current_N-1] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M][Current_N-1] ) {
 			Go_Where [Current_M][Current_N] = 'W' ;
 			return 1 ;
 		}
-		else if ( Maze_Map [Current_M+1][Current_N] == '.' && have_energy [Current_M+1][Current_N] == -1 ) {
+		else if ( Maze_Map [Current_M+1][Current_N] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M+1][Current_N] ) {
 			Go_Where [Current_M][Current_N] = 'S' ;
 			return 1 ;
 		}
-		else if ( Maze_Map [Current_M-1][Current_N] == '.' && have_energy [Current_M-1][Current_N] == -1 ) {
+		else if ( Maze_Map [Current_M-1][Current_N] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M-1][Current_N] ) {
 			Go_Where [Current_M][Current_N] = 'N' ;
 			return 1 ;
 		}
@@ -366,6 +366,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N - Current_M + Break_Num + j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N - Current_M + Break_Num + j]
 					     && Current_N - Current_M + Break_Num + j <= Map_N) {
+						push () ;
 						Current_N = Current_N - Current_M + Break_Num + j ;
 						Current_M = i ;
 						energy -= Break_Num ;
@@ -377,6 +378,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N + Current_M - Break_Num - j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N + Current_M - Break_Num - j]
 					     && Current_N + Current_M - Break_Num - j >= 1) {
+						push () ;
 						Current_N = Current_N + Current_M - Break_Num - j ;
 						Current_M = i ;
 						energy -= Break_Num ;
@@ -396,6 +398,7 @@ int Break_Wall () {
 		else {
 			if ( Maze_Map [Current_M - Break_Num - 1][Current_N] == '.' ) {
 				if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [Current_M - Break_Num - 1][Current_N]) {
+					push () ;
 					Current_M = Current_M - Break_Num - 1 ;
 					energy -= Break_Num ;
 					have_energy [Current_M][Current_N] = energy ;
@@ -411,6 +414,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N + j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N + j]
 					     && Current_N + j <= Map_N ) {
+						push () ;
 						Current_M = i ;
 						Current_N += j ;
 						energy -= Break_Num ;
@@ -422,6 +426,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N - j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N - j]
 					     && Current_N - j >= 1 ) {
+						push () ;
 						Current_M = i ;
 						Current_N -= j ;
 						energy -= Break_Num ;
@@ -447,6 +452,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N - Map_M + Current_M + Break_Num + j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N - Map_M + Current_M + Break_Num + j]
 					     && Current_N - Map_M + Current_M + Break_Num + j <= Map_N ) {
+						push () ;
 						Current_N = Current_N - Map_M + Current_M + Break_Num + j ;
 						Current_M = i ;
 						energy -= Break_Num ;
@@ -458,6 +464,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N + Map_M - Current_M - Break_Num - j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N + Map_M - Current_M - Break_Num - j]
 					     && Current_N + Map_M - Current_M - Break_Num - j >= 1 ) {
+						push () ;
 						Current_N = Current_N + Map_M - Current_M - Break_Num - j ;
 						Current_M = i ;
 						energy -= Break_Num ;
@@ -477,6 +484,7 @@ int Break_Wall () {
 		else {
 			if ( Maze_Map [Current_M + Break_Num + 1][Current_N] == '.' ) {
 				if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [Current_M + Break_Num + 1][Current_N] ) {
+					push () ;
 					Current_M = Current_M + Break_Num + 1 ;
 					energy -= Break_Num ;
 					have_energy [Current_M][Current_N] = energy ;
@@ -492,6 +500,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N + j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N + j]
 					     && Current_N + j <= Map_N ) {
+						push () ;
 						Current_M = i ;
 						Current_N += j ;
 						energy -= Break_Num ;
@@ -503,6 +512,7 @@ int Break_Wall () {
 				if ( Maze_Map [i][Current_N - j] == '.' ) {
 					if ( have_energy [Current_M][Current_N] - Break_Num > have_energy [i][Current_N - j]
 					     && Current_N - j >= 1 ) {
+						push () ;
 						Current_M = i ;
 						Current_N -= j ;
 						energy -= Break_Num ;
