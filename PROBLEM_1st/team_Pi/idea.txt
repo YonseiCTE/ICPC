@@ -108,6 +108,41 @@
  ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½.
 
 5.
+<<<<<<< HEAD
+<<<<<<< HEAD
+ ¿ì¸® ÆÀ¿¡¼­ Á¦°øÇÑ Maze_Robot.cpp ÆÄÀÏÀ» »ìÆìº¸¸é MapÀ» Ä«ÇÇ ÇÒ ¶§, '='·Î º®À» ÃÄ¼­ copy ÇßÀ½À» ¾Ë ¼ö ÀÖ´Ù.
+ Ã¾à
+
+
+         S .
+         . T
+         
+ ¿Í °°Àº ¸ÊÀ» copy ÇÒ ¶§,
+ 
+          = = = =
+          = S . =
+          = . T =
+          = = = =
+ 
+ ·Î º¹»ç ÇÏ¿´´Âµ¥, ±»ÀÌ °Ñ¿¡ º®À» Ä¥ ÇÊ¿ä°¡ ¾øÀ½À» ¾Ë ¼ö ÀÖ¾ú´Ù.
+ ¹°·Ð, »ç¶÷¸¶´Ù ÄÚµù ¹æ½ÄÀÌ ´Ù¸£´Ï ÇÊ¿äÇÒ ¼öµµ ÀÖ°ÚÁö¸¸ ¸»ÀÌ´Ù.
+
+6.
+ ±×·¸´Ù¸é µµ´ëÃ¼ ¾î¶² ½ÄÀ¸·Î µµÂøÁöÁ¡¿¡ µµ´ÞÇÒ ¼ö ÀÖÀ½À» ¾Ë ¼ö ÀÖÀ»±î?
+ ½ÄÀ» °£´ÜÈ÷ Ç¥ÇöÇÏ´Â °ÍÀ¸·Î idea¸¦ ³¡³»°Ú´Ù.
+ M : Çà
+ N : ¿­
+
+ Current_energy : ÇöÀç À§Ä¡¿¡¼­ÀÇ energy ÀÜ¿© ¼ö
+ Current_M : ÇöÀç À§Ä¡ÀÇ M °ª
+ Current_N : ÇöÀç À§Ä¡ÀÇ N °ª
+ T_M : µµÂøÁöÁ¡ÀÇ M °ª
+ T_N : µµÂøÁöÁ¡ÀÇ N °ª
+
+ abs (T_M - Current_M) + abs (T_N - Current_N) - 1 <= Current_energy
+=======
+=======
+>>>>>>> fde81f5378906e6074d3dcd52cea7e4645bbb916
  ìš°ë¦¬ íŒ€ì—ì„œ ì œê³µí•œ Maze_Robot.cpp íŒŒì¼ì„ ì‚´íŽ´ë³´ë©´ Mapì„ ì¹´í”¼ í•  ë•Œ, '='ë¡œ ë²½ì„ ì³ì„œ copy í–ˆìŒì„ ì•Œ ìˆ˜ ìžˆë‹¤.
  ë¨„ì•½
 
@@ -137,3 +172,7 @@
  T_N : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ N ï¿½ï¿½
 
  abs (T_M - Current_M) + abs (T_N - Current_N) - 1 <= Current_energy
+<<<<<<< HEAD
+>>>>>>> fde81f5378906e6074d3dcd52cea7e4645bbb916
+=======
+>>>>>>> fde81f5378906e6074d3dcd52cea7e4645bbb916
