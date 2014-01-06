@@ -16,8 +16,8 @@ int Map_N ;
 int energy ;
 int Current_M ;
 int Current_N ;
-int Stack_M [MAX] ;
-int Stack_N [MAX] ;
+int Stack_M [500 * 500] ;
+int Stack_N [500 * 500] ;
 int top ;
 int have_energy [MAX][MAX] ;
 char Maze_Map [MAX][MAX] ;
@@ -92,15 +92,15 @@ int main (void) {
 					have_energy [Current_M][Current_N+1] = have_energy [Current_M][Current_N] ;
 					Current_N++ ;
 				}
-				else if ( Go_Where [Current_M][Current_N] == 'W' ) {
-					push () ;
-					have_energy [Current_M][Current_N-1] = have_energy [Current_M][Current_N] ;
-					Current_N-- ;
-				}
 				else if ( Go_Where [Current_M][Current_N] == 'S' ) {
 					push () ;
 					have_energy [Current_M+1][Current_N] = have_energy [Current_M][Current_N] ;
 					Current_M++ ;
+				}
+				else if ( Go_Where [Current_M][Current_N] == 'W' ) {
+					push () ;
+					have_energy [Current_M][Current_N-1] = have_energy [Current_M][Current_N] ;
+					Current_N-- ;
 				}
 				else if ( Go_Where [Current_M][Current_N] == 'N' ) {
 					push () ;
@@ -139,7 +139,9 @@ int Path_Check () {
 
 		int loc [MAX] ;
 		int count = 0 ;
+		int count2 = 0 ;
 		int flag = 0 ;
+		int flag2 = 0 ;
 
 		//*******************************************************************************************************************
 		// 동쪽 길이 열려 있는 경우
@@ -175,6 +177,41 @@ int Path_Check () {
 
 			flag = 1 ;
 		} // if 'E'
+
+		//*******************************************************************************************************************
+		// 남쪽 길이 열려 있는 경우
+		//*******************************************************************************************************************
+
+		if ( Maze_Map [Current_M+1][Current_N] == '.' ) {
+			for ( int i = 0 ; i <= top ; i++ ) {
+				if ( Stack_N [i] == Current_N ) {
+					loc [count2] = i ;
+					count2++ ;
+				}
+			}
+
+			if ( count2 ) {
+				for ( int i = 0 ; i < count2 ;  i++ ) {
+					if ( Stack_M [ loc[i] ] == Current_M + 1 ) {
+						break ;
+					}
+					if ( i == count2 - 1 ) {
+						if ( have_energy [Current_M + 1][Current_N] < have_energy [Current_M][Current_N] ) {
+							Go_Where [Current_M][Current_N] = 'S' ;
+							return 1 ;
+						}
+					}
+				}
+			}
+			else {
+				if ( have_energy [Current_M + 1][Current_N] < have_energy [Current_M][Current_N] ) {
+					Go_Where [Current_M][Current_N] = 'S' ;
+					return 1 ;
+				}
+			}
+
+			flag2 = 1 ;
+		} // if 'S'
 
 		//*******************************************************************************************************************
 		// 서쪽 길이 열려 있는 경우
@@ -230,55 +267,17 @@ int Path_Check () {
 			}
 		} // if 'W'
 
-		count = 0 ;
-		flag = 0 ;
-
-		//*******************************************************************************************************************
-		// 남쪽 길이 열려 있는 경우
-		//*******************************************************************************************************************
-
-		if ( Maze_Map [Current_M+1][Current_N] == '.' ) {
-			for ( int i = 0 ; i <= top ; i++ ) {
-				if ( Stack_N [i] == Current_N ) {
-					loc [count] = i ;
-					count++ ;
-				}
-			}
-
-			if ( count ) {
-				for ( int i = 0 ; i < count ;  i++ ) {
-					if ( Stack_M [ loc[i] ] == Current_M + 1 ) {
-						break ;
-					}
-					if ( i == count - 1 ) {
-						if ( have_energy [Current_M + 1][Current_N] < have_energy [Current_M][Current_N] ) {
-							Go_Where [Current_M][Current_N] = 'S' ;
-							return 1 ;
-						}
-					}
-				}
-			}
-			else {
-				if ( have_energy [Current_M + 1][Current_N] < have_energy [Current_M][Current_N] ) {
-					Go_Where [Current_M][Current_N] = 'S' ;
-					return 1 ;
-				}
-			}
-
-			flag = 1 ;
-		} // if 'S'
-
 		//*******************************************************************************************************************
 		// 북쪽 길이 열려 있는 경우
 		//*******************************************************************************************************************
 
 		if ( Maze_Map [Current_M-1][Current_N] == '.' ) {
-			if ( flag ) {
-				if ( count ) {
-					for ( int i = 0 ; i < count ; i++ ) {
+			if ( flag2 ) {
+				if ( count2 ) {
+					for ( int i = 0 ; i < count2 ; i++ ) {
 						if ( Stack_M [ loc[i] ] == Current_M - 1 )
 							break ;
-						if ( i == count - 1 ) {
+						if ( i == count2 - 1 ) {
 							if ( have_energy [Current_M - 1][Current_N] < have_energy [Current_M][Current_N] ) {
 								Go_Where [Current_M][Current_N] = 'N' ;
 								return 1 ;
@@ -296,16 +295,16 @@ int Path_Check () {
 			else {
 				for ( int i = 0 ; i <= top ; i++ ) {
 					if ( Stack_N [i] == Current_N ) {
-						loc [count] = i ;
-						count++ ;
+						loc [count2] = i ;
+						count2++ ;
 					}
 				}
 
-				if ( count ) {
-					for ( int i = 0 ; i < count ;  i++ ) {
+				if ( count2 ) {
+					for ( int i = 0 ; i < count2 ;  i++ ) {
 						if ( Stack_M [ loc[i] ] == Current_M - 1 )
 							break ;
-						if ( i == count - 1 ) {
+						if ( i == count2 - 1 ) {
 							if ( have_energy [Current_M - 1][Current_N] < have_energy [Current_M][Current_N] ) {
 								Go_Where [Current_M][Current_N] = 'N' ;
 								return 1 ;
@@ -355,6 +354,9 @@ int Path_Check () {
 int Break_Wall () {
 	int Break_Num = 1 ;
 	int Is_Find = 0 ;
+
+	if ( Maze_Map [Current_M][Current_N+1] == '*' || Maze_Map [Current_M][Current_N-1] == '*' || Maze_Map [Current_M+1][Current_N] == '*'
+		 || Maze_Map [Current_M-1][Current_N] == '*' ) {
 
 	while ( Break_Num <= energy ) {
 
@@ -532,6 +534,7 @@ int Break_Wall () {
 
 		Break_Num++ ;
 	}
+	}
 
 	if ( Is_Find ) {
 		return 1 ;
@@ -546,7 +549,7 @@ int Break_Wall () {
 //***************************************************************************************************************************
 
 void push () {
-	if ( top == MAX - 1 )
+	if ( top == 500 * 500 - 1 )
 		fprintf ( stderr, "Push error!!\n" ) ;
 
 	Stack_M [++top] = Current_M ;
