@@ -42,6 +42,7 @@ int pop_N () ;
 int main (void) {
 
 	FILE *fptr = NULL ;
+	while (1) {
 	printf ("열고자 하는 파일 이름을 입력 하세요(확장자 포함!) : ex) testcase1.txt\n") ;
 	scanf ( "%s", File_Name ) ;
 	fptr = fopen ( File_Name, "r" ) ;
@@ -131,8 +132,12 @@ int main (void) {
 			}
 		}
 	}
-
+	printf ("종료하시려면 '1'을 입력하세요 (계속 하려면 아무 키나 누르시오)\n") ;
+	scanf ("%d", &top) ;
 	fclose (fptr) ;
+	if ( top == 1)
+		break ;
+	}
 	return 0 ;
 }
 
