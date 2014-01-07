@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 //***************************************************************************************************************************
@@ -22,6 +23,7 @@ int top ;
 int have_energy [MAX][MAX] ;
 char Maze_Map [MAX][MAX] ;
 char Go_Where [MAX][MAX] ;
+char File_Name [MAX] ;
 
 //***************************************************************************************************************************
 // 함수 선언
@@ -40,7 +42,14 @@ int pop_N () ;
 int main (void) {
 
 	FILE *fptr = NULL ;
-	fptr = fopen ( "Maze.txt", "r" ) ;
+	printf ("열고자 하는 파일 이름을 입력 하세요(확장자 포함!) : ex) testcase1.txt\n") ;
+	scanf ( "%s", File_Name ) ;
+	fptr = fopen ( File_Name, "r" ) ;
+
+	if ( fptr == NULL ) {
+		printf ("그런 파일은 없습니다.\n") ;
+		exit(1) ;
+	}
 
 	fscanf ( fptr, "%d", &Test_Num ) ;
 
