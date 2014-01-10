@@ -55,3 +55,6 @@
  Next_N    : 다음 위치의 열
 
  Distance += abs ( Current_M - Next_M ) + abs ( Current_N - Next_N )
+
+
+시간 복잡도 : O ( n )
