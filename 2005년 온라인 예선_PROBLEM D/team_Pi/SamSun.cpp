@@ -92,10 +92,29 @@ int main (void) {
 					}
 					else {
 						Change_Current_Next_Coordinate ( j, j+1 ) ;
-						while ( top > -1 ) {
-							Change_Flag = pop () ;
-							Delivery [Change_Flag][0] = Delivery [j][0] ;
-							Delivery [Change_Flag][1] = Delivery [j][1] ;
+						if ( j == Delivery_Num - 2 ) {
+							if ( Delivery [j][2] != -1 ) {
+								int distance1 = abs ( Delivery [MAX][0] - Delivery [j+1][0] ) + abs ( Delivery [MAX][1] - Delivery [j+1][1] ) ;
+								int distance2 = abs ( Delivery [MAX][0] - Delivery [j+1][2] ) + abs ( Delivery [MAX][1] - Delivery [j+1][3] ) ;
+
+								if ( distance1 > distance2 ) {
+									Delivery [j+1][0] = Delivery [j+1][2] ;
+									Delivery [j+1][1] = Delivery [j+1][3] ;
+								}
+
+								distance1 = abs ( Delivery [j][0] - Delivery [j+1][0] ) + abs ( Delivery [j][1] - Delivery [j+1][1] ) ;
+								distance2 = abs ( Delivery [j][2] - Delivery [j+1][0] ) + abs ( Delivery [j][3] - Delivery [j+1][1] ) ;
+
+								if ( distance1 > distance2 ) {
+									Delivery [j][0] = Delivery [j][2] ;
+									Delivery [j][1] = Delivery [j][3] ;
+								}
+							}
+							while ( top > -1 ) {
+								Change_Flag = pop () ;
+								Delivery [Change_Flag][0] = Delivery [j][0] ;
+								Delivery [Change_Flag][1] = Delivery [j][1] ;
+							}
 						}
 						Change_Flag = 0 ;
 					}
