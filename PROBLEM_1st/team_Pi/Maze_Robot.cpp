@@ -132,6 +132,7 @@ int main (void) {
 			}
 		}
 	}
+
 	printf ("종료하시려면 '1'을 입력하세요 (계속 하려면 아무 키나 누르시오)\n") ;
 	scanf ("%d", &top) ;
 	fclose (fptr) ;
@@ -148,217 +149,51 @@ int main (void) {
 int Path_Check () {
 
 	// Search
-	// 시작 포인트가 아닐 경우
-	if ( top > -1 ) {
+	//*******************************************************************************************************************
+	// 동쪽 길이 열려 있는 경우
+	//*******************************************************************************************************************
 
-		int loc [MAX] ;
-		int count = 0 ;
-		int count2 = 0 ;
-		int flag = 0 ;
-		int flag2 = 0 ;
-
-		//*******************************************************************************************************************
-		// 동쪽 길이 열려 있는 경우
-		//*******************************************************************************************************************
-
-		if ( Maze_Map [Current_M][Current_N+1] == '.' ) {
-			for ( int i = 0 ; i <= top ; i++ ) {
-				if ( Stack_M [i] == Current_M ) {
-					loc [count] = i ;
-					count++ ;
-				}
-			}
-
-			if ( count ) {
-				for ( int i = 0 ; i < count ;  i++ ) {
-					if ( Stack_N [ loc[i] ] == Current_N + 1 ) {
-						break ;
-					}
-					if ( i == count - 1 ) {
-						if ( have_energy [Current_M][Current_N + 1] < have_energy [Current_M][Current_N] ) {
-							Go_Where [Current_M][Current_N] = 'E' ;
-							return 1 ;
-						}
-					}
-				}
-			}
-			else {
-				if ( have_energy [Current_M][Current_N + 1] < have_energy [Current_M][Current_N] ) {
-					Go_Where [Current_M][Current_N] = 'E' ;
-					return 1 ;
-				}
-			}
-
-			flag = 1 ;
-		} // if 'E'
-
-		//*******************************************************************************************************************
-		// 남쪽 길이 열려 있는 경우
-		//*******************************************************************************************************************
-
-		if ( Maze_Map [Current_M+1][Current_N] == '.' ) {
-			for ( int i = 0 ; i <= top ; i++ ) {
-				if ( Stack_N [i] == Current_N ) {
-					loc [count2] = i ;
-					count2++ ;
-				}
-			}
-
-			if ( count2 ) {
-				for ( int i = 0 ; i < count2 ;  i++ ) {
-					if ( Stack_M [ loc[i] ] == Current_M + 1 ) {
-						break ;
-					}
-					if ( i == count2 - 1 ) {
-						if ( have_energy [Current_M + 1][Current_N] < have_energy [Current_M][Current_N] ) {
-							Go_Where [Current_M][Current_N] = 'S' ;
-							return 1 ;
-						}
-					}
-				}
-			}
-			else {
-				if ( have_energy [Current_M + 1][Current_N] < have_energy [Current_M][Current_N] ) {
-					Go_Where [Current_M][Current_N] = 'S' ;
-					return 1 ;
-				}
-			}
-
-			flag2 = 1 ;
-		} // if 'S'
-
-		//*******************************************************************************************************************
-		// 서쪽 길이 열려 있는 경우
-		//*******************************************************************************************************************
-
-		if ( Maze_Map [Current_M][Current_N-1] == '.' ) {
-			if ( flag ) {
-				if ( count ) {
-					for ( int i = 0 ; i < count ; i++ ) {
-						if ( Stack_N [ loc[i] ] == Current_N - 1 )
-							break ;
-						if ( i == count - 1 ) {
-							if ( have_energy [Current_M][Current_N - 1] < have_energy [Current_M][Current_N] ) {
-								Go_Where [Current_M][Current_N] = 'W' ;
-								return 1 ;
-							}
-						}
-					}
-				}
-				else {
-					if ( have_energy [Current_M][Current_N - 1] < have_energy [Current_M][Current_N] ) {
-						Go_Where [Current_M][Current_N] = 'W' ;
-						return 1 ;
-					}
-				}
-			}
-			else {
-				for ( int i = 0 ; i <= top ; i++ ) {
-					if ( Stack_M [i] == Current_M ) {
-						loc [count] = i ;
-						count++ ;
-					}
-				}
-
-				if ( count ) {
-					for ( int i = 0 ; i < count ;  i++ ) {
-						if ( Stack_N [ loc[i] ] == Current_N - 1 )
-							break ;
-						if ( i == count - 1 ) {
-							if ( have_energy [Current_M][Current_N - 1] < have_energy [Current_M][Current_N] ) {
-								Go_Where [Current_M][Current_N] = 'W' ;
-								return 1 ;
-							}
-						}
-					}
-				}
-				else {
-					if ( have_energy [Current_M][Current_N - 1] < have_energy [Current_M][Current_N] ) {
-						Go_Where [Current_M][Current_N] = 'W' ;
-						return 1 ;
-					}
-				}
-			}
-		} // if 'W'
-
-		//*******************************************************************************************************************
-		// 북쪽 길이 열려 있는 경우
-		//*******************************************************************************************************************
-
-		if ( Maze_Map [Current_M-1][Current_N] == '.' ) {
-			if ( flag2 ) {
-				if ( count2 ) {
-					for ( int i = 0 ; i < count2 ; i++ ) {
-						if ( Stack_M [ loc[i] ] == Current_M - 1 )
-							break ;
-						if ( i == count2 - 1 ) {
-							if ( have_energy [Current_M - 1][Current_N] < have_energy [Current_M][Current_N] ) {
-								Go_Where [Current_M][Current_N] = 'N' ;
-								return 1 ;
-							}
-						}
-					}
-				}
-				else {
-					if ( have_energy [Current_M - 1][Current_N] < have_energy [Current_M][Current_N] ) {
-						Go_Where [Current_M][Current_N] = 'N' ;
-						return 1 ;
-					}
-				}
-			}
-			else {
-				for ( int i = 0 ; i <= top ; i++ ) {
-					if ( Stack_N [i] == Current_N ) {
-						loc [count2] = i ;
-						count2++ ;
-					}
-				}
-
-				if ( count2 ) {
-					for ( int i = 0 ; i < count2 ;  i++ ) {
-						if ( Stack_M [ loc[i] ] == Current_M - 1 )
-							break ;
-						if ( i == count2 - 1 ) {
-							if ( have_energy [Current_M - 1][Current_N] < have_energy [Current_M][Current_N] ) {
-								Go_Where [Current_M][Current_N] = 'N' ;
-								return 1 ;
-							}
-						}
-					}
-				}
-				else {
-					if ( have_energy [Current_M - 1][Current_N] < have_energy [Current_M][Current_N] ) {
-						Go_Where [Current_M][Current_N] = 'N' ;
-						return 1 ;
-					}
-				}
-			}
-		} // if 'N'
-
-		return 0 ;
-	}
-
-	// 시작 포인트일 경우
-	else {
-		if ( Maze_Map [Current_M][Current_N+1] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M][Current_N+1] ) {
+	if ( Maze_Map [Current_M][Current_N+1] == '.' ) {
+		if ( have_energy [Current_M][Current_N+1] < have_energy [Current_M][Current_N] ) {
 			Go_Where [Current_M][Current_N] = 'E' ;
 			return 1 ;
 		}
-		else if ( Maze_Map [Current_M][Current_N-1] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M][Current_N-1] ) {
-			Go_Where [Current_M][Current_N] = 'W' ;
-			return 1 ;
-		}
-		else if ( Maze_Map [Current_M+1][Current_N] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M+1][Current_N] ) {
+	} // if 'E'
+
+	//*******************************************************************************************************************
+	// 남쪽 길이 열려 있는 경우
+	//*******************************************************************************************************************
+
+	if ( Maze_Map [Current_M+1][Current_N] == '.' ) {
+		if ( have_energy [Current_M+1][Current_N] < have_energy [Current_M][Current_N] ) {
 			Go_Where [Current_M][Current_N] = 'S' ;
 			return 1 ;
 		}
-		else if ( Maze_Map [Current_M-1][Current_N] == '.' && have_energy [Current_M][Current_N] > have_energy [Current_M-1][Current_N] ) {
+	} // if 'S'
+
+	//*******************************************************************************************************************
+	// 서쪽 길이 열려 있는 경우
+	//*******************************************************************************************************************
+
+	if ( Maze_Map [Current_M][Current_N-1] == '.' ) {
+		if ( have_energy [Current_M][Current_N-1] < have_energy [Current_M][Current_N] ) {
+			Go_Where [Current_M][Current_N] = 'W' ;
+			return 1 ;
+		}
+	} // if 'W'
+
+	//*******************************************************************************************************************
+	// 북쪽 길이 열려 있는 경우
+	//*******************************************************************************************************************
+
+	if ( Maze_Map [Current_M-1][Current_N] == '.' ) {
+		if ( have_energy [Current_M-1][Current_N] < have_energy [Current_M][Current_N] ) {
 			Go_Where [Current_M][Current_N] = 'N' ;
 			return 1 ;
 		}
-		else
-			return 0 ;
-	}
+	} // if 'N'
+
+	return 0 ;
 }
 
 //***************************************************************************************************************************
