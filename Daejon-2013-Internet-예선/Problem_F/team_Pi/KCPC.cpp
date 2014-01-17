@@ -56,10 +56,11 @@ int main (void) {
 			if ( Log_Entry < 3 || Log_Entry > 10000 )
 				fprintf ( stderr, "테스트 %d번째 로그 엔트리의 수가 해당 범위내에 있지 않습니다.\n", i+1 ) ;
 
-			// 모든 팀의 최종 점수 & 각 문제 당 점수 & 제출 개수를 '0'으로 초기화
+			// 모든 팀의 최종 점수 & 각 문제 당 점수 & 제출 개수 & 마지막 제출 순위를 '0'으로 초기화
 			for ( int j = 0 ; j < Team_Num ; j++ ) {
 				Team_Score [j] = 0 ;
 				Team_Submit [j] = 0 ;
+				Last_Submit [j] = 0 ;
 				for ( int k = 0 ; k < Problem_Num ; k++ )
 					Team_Problem [j][k] = 0 ;
 			}
@@ -81,29 +82,36 @@ int main (void) {
 			}
 			// 사용자의 팀 순위 계산
 			My_Rank = Team_Num ;						// 순위를 꼴찌로 초기화
-			for ( int j = 0 ; j < Team_Num ; j++ ) {
-				// 자신의 팀과 만나면 jump
-				if ( j == My_Team-1 ) {}
-				else {
-					// 상대 팀보다 점수가 높으면 '1'순위 증가
-					if ( Team_Score [j] < Team_Score [My_Team - 1] )
-						My_Rank-- ;
-					// 상대 팀과 점수가 같다면
-					else if ( Team_Score [j] == Team_Score [My_Team - 1] ) {
-						// 제출한 프로젝트가 적을시 '1'순위 증가
-						if ( Team_Submit [j] > Team_Submit [My_Team - 1] )
+			// 한번 이상 문제를 풀었을 경우 순위 계산
+			if ( Last_Submit [My_Team-1] != 0 ) {
+				for ( int j = 0 ; j < Team_Num ; j++ ) {
+					// 자신의 팀과 만나면 jump
+					if ( j == My_Team-1 ) {}
+					else {
+						// 상대 팀보다 점수가 높으면 '1'순위 증가
+						if ( Team_Score [j] < Team_Score [My_Team - 1] )
 							My_Rank-- ;
-						// 제출한 프로젝트가 같다면
-						else if ( Team_Submit [j] == Team_Submit [My_Team - 1] ) {
-							// 마지막에 제출한 순서가 더 작을시 '1'순위 증가
-							if ( Last_Submit [j] > Last_Submit [My_Team - 1] )
+						// 상대 팀과 점수가 같다면
+						else if ( Team_Score [j] == Team_Score [My_Team - 1] ) {
+							// 제출한 프로젝트가 적을시 '1'순위 증가
+							if ( Team_Submit [j] > Team_Submit [My_Team - 1] )
 								My_Rank-- ;
+							// 제출한 프로젝트가 같다면
+							else if ( Team_Submit [j] == Team_Submit [My_Team - 1] ) {
+								// 마지막에 제출한 순서가 더 작을시 '1'순위 증가
+								if ( Last_Submit [j] > Last_Submit [My_Team - 1] )
+									My_Rank-- ;
+							}
 						}
 					}
 				}
+				// 팀의 순위 출력
+				printf ("%d\n", My_Rank) ;
 			}
-			// 팀의 순위 출력
-			printf ("%d\n", My_Rank) ;
+			// 한 문제도 제출 하지 않았을 경우 무조건 꼴찌로 출력
+			else {
+				printf ("%d\n", My_Rank) ;
+			}
 		}
 
 		printf ("종료하시려면 '1'을 입력하세요 (계속 하려면 아무 키나 누르시오)\n") ;
