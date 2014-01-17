@@ -108,9 +108,14 @@ int main (void) {
 				// 팀의 순위 출력
 				printf ("%d\n", My_Rank) ;
 			}
-			// 한 문제도 제출 하지 않았을 경우 무조건 꼴찌로 출력
+			// 한 문제도 제출 하지 않았을 경우 '0'점자 수 - 1 만큼 등수가 올라감
 			else {
-				printf ("%d\n", My_Rank) ;
+				for ( int j = 0 ; j < Team_Num ; j++ ) {
+					if ( Team_Score [j] == Team_Score [My_Team - 1] )
+						My_Rank-- ;
+				}
+				My_Rank++ ;
+				printf ("%d ('0'점 자 : %d명)\n", My_Rank, Team_Num - My_Rank + 1) ;
 			}
 		}
 
