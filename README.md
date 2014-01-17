@@ -1,4 +1,4 @@
-﻿# ACM ICPC - Yonsei University, Wonju
+# ACM ICPC - Yonsei University, Wonju
 
 ---
 
@@ -31,16 +31,6 @@ Project : Prepare for ACM ICPC
 - 정재학
 
 - 박현태
-
-< Davi Innovation >
-
-- 조동헌 " Cho Dong Heon "
-[Linkedin](http://kr.linkedin.com/in/dongheoncho/en)
-
-- 박상민 " Sangmin Park "
-
-- 임경현 " Kyunghyun Lim "
- 
 
 
 ---
