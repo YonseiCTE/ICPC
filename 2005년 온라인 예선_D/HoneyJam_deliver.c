@@ -2,7 +2,7 @@
 *	acm_deliver_problem
 *	resolver : kong ji yeon
 *	date : 2014.2.20
-*	comment : jj
+*	comment : 
 *******/
 #include<stdio.h>
 #include<stdlib.h>
@@ -55,7 +55,7 @@ int* Calculate(int T,int *N,Location **guest){
 	int index;
 	answer=(int*)calloc(T,sizeof(int));
 	for(i=0;i<T;i++){
-		startLocation=guest[i][0];
+		startLocation=*(*(guest+i));
 		distanceSum=0;
 		for(j=0;j<*(N+i);j++){
 			north.x=(*(guest+i)+(j+1))->x;
@@ -89,13 +89,11 @@ int* Calculate(int T,int *N,Location **guest){
 					}
 				}
 			}
-			if(j<*(N+i)){
-				*(close+0)=(int)fabs((double)guest[i][j+2].x-temp[0].x)+(int)fabs((double)guest[i][j+2].y-temp[0].y);
-				*(close+1)=(int)fabs((double)guest[i][j+2].x-temp[1].x)+(int)fabs((double)guest[i][j+2].y-temp[1].y);
-				startLocation=temp[0];
-				if(close[0]>close[1] && index==2){
-					startLocation=temp[1];
-				}
+			*(close+0)=(int)fabs((double)guest[i][j+2].x-temp[0].x)+(int)fabs((double)guest[i][j+2].y-temp[0].y);
+			*(close+1)=(int)fabs((double)guest[i][j+2].x-temp[1].x)+(int)fabs((double)guest[i][j+2].y-temp[1].y);
+			startLocation=temp[0];
+			if(close[0]>close[1] && index==2){
+				startLocation=temp[1];
 			}
 		}
 		answer[i]=distanceSum;
