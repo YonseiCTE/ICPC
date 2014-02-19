@@ -81,12 +81,13 @@ int* Calculate(int T,int *N,Location **guest){
 			for(k=0;k<4;k++){
 				if(minDistance==distance[k]){
 					switch(k){
-					case 0:*(temp+index)=north;index++;break;
-					case 1:*(temp+index)=south;index++;break;
-					case 2:*(temp+index)=east;index++;break;
-					case 3:*(temp+index)=west;index++;break;
+					case 0:*(temp+index)=north;break;
+					case 1:*(temp+index)=south;break;
+					case 2:*(temp+index)=east;break;
+					case 3:*(temp+index)=west;break;
 					default:break;
 					}
+					index++;
 				}
 			}
 			*(close+0)=(int)fabs((double)guest[i][j+2].x-temp[0].x)+(int)fabs((double)guest[i][j+2].y-temp[0].y);
