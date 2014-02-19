@@ -2,7 +2,7 @@
 *	acm_deliver_problem
 *	resolver : kong ji yeon
 *	date : 2014.2.20
-*	comment : 
+*	comment : jj
 *******/
 #include<stdio.h>
 #include<stdlib.h>
